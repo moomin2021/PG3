@@ -4,7 +4,10 @@
 template <typename Type>
 
 Type Min(Type a, Type b) {
-	if (a < b) return a;
+	if (a < b) {
+		return a;
+	}
+
 	return b;
 }
 
