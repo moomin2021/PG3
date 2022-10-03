@@ -20,5 +20,14 @@ int main() {
 
 	printf("一般的な賃金%d\n", Case1(1072, 8));
 	printf("再帰的な賃金%d\n", Case2(100, 8));
+
+	if (Case1(1072, 8) > Case2(100, 8)) {
+		printf("一般的な賃金の方が高い\n");
+	}
+
+	else {
+		printf("再帰的な賃金の方が高い\n");
+	}
+
 	return 0;
 }
