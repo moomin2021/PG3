@@ -7,7 +7,7 @@
 typedef void (*PFunc)(int*);
 
 void CallBack(int* s) {
-	printf_s("%d•bŠÔˆ—‚ª~‚Ü‚è‚Ü‚·\n", *s);
+	printf_s("³‰ğ‚Í%dŒã...\n", *s);
 }
 
 int main() {
