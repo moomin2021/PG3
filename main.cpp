@@ -4,13 +4,29 @@
 #include <time.h>
 #include <functional>
 
-typedef void (*PFunc)(int*);
+typedef void (*PFunc)(char[]);
 
-void CallBack(int* s) {
-	printf_s("正解は%d後...\n", *s);
+void Lottery(char str[]) {
+	// --ランダムな値を取得-- //
+	int randomValue = rand();
+
+	printf_s("ランダムで返された値は%dです\n", randomValue);
+
+	// --[偶数]か[奇数]かを判定する-- //
+	if (strcmp(str, "偶数") == 0 && randomValue % 2 == 0) printf_s("結果は偶数でした！お見事です！\n");
+	else if (strcmp(str, "奇数") == 0 && randomValue % 2 == 1) printf_s("結果は奇数でした！お見事です！\n");
+	else printf_s("残念！ハズレです！\n");
 }
 
+std::function<void(PFunc, int, char[])> SetTimeOut = [](PFunc p, int second, char str[]) {
+	printf_s("結果は%d後...", second);
+	Sleep(second * 1000);
+	p(str);
+};
+
 int main() {
+	PFunc p;
+
 	// --初期化-- //
 	srand(time(nullptr));
 
@@ -28,25 +44,9 @@ int main() {
 		printf_s("間違った入力です。\n");
 	}
 
-	// --関数ポインタを用いて一時的に処理を止める-- //
-	PFunc p;
-	p = CallBack;
-
-	std::function<void(PFunc, int)> fx = [](PFunc p, int second) {
-		p(&second);
-		Sleep(second * 1000);
-	};
-
-	fx(p, 3);
-
-	// --ランダムな値を取得-- //
-	int randomValue = rand();
-
-	printf_s("ランダムで返された値は%dです\n", randomValue);
-
-	// --[偶数]か[奇数]かを判定する-- //
-	if (randomValue % 2 == 0) printf_s("正解は偶数でした\n");
-	else printf_s("正解は奇数でした\n");
+	// --抽選-- //
+	p = Lottery;
+	SetTimeOut(p, 3, str);
 
 	return 0;
 }
