@@ -6,7 +6,7 @@
 typedef void (*PFunc)(int*);
 
 void CallBack(int* s) {
-	printf_s("%d•bŠÔˆ—‚ª~‚Ü‚è‚Ü‚·\n", *s);
+	printf_s("³‰ğ‚Í%dŒã...\n", *s);
 }
 
 void SetTimeOut(PFunc p, int second) {
@@ -41,6 +41,10 @@ int main() {
 	int randomValue = rand();
 
 	printf_s("ƒ‰ƒ“ƒ_ƒ€‚Å•Ô‚³‚ê‚½’l‚Í%d‚Å‚·\n", randomValue);
+
+	// --[‹ô”]‚©[Šï”]‚©‚ğ”»’è‚·‚é-- //
+	if (randomValue % 2 == 0) printf_s("³‰ğ‚Í‹ô”‚Å‚µ‚½\n");
+	else printf_s("³‰ğ‚ÍŠï”‚Å‚µ‚½\n");
 
 	return 0;
 }
