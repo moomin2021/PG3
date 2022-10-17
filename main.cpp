@@ -2,16 +2,12 @@
 #include <stdlib.h>
 #include <windows.h>
 #include <time.h>
+#include <functional>
 
 typedef void (*PFunc)(int*);
 
 void CallBack(int* s) {
 	printf_s("%d秒間処理が止まります\n", *s);
-}
-
-void SetTimeOut(PFunc p, int second) {
-	p(&second);
-	Sleep(second * 1000);
 }
 
 int main() {
@@ -35,12 +31,22 @@ int main() {
 	// --関数ポインタを用いて一時的に処理を止める-- //
 	PFunc p;
 	p = CallBack;
-	SetTimeOut(p, 3);
+
+	std::function<void(PFunc, int)> fx = [](PFunc p, int second) {
+		p(&second);
+		Sleep(second * 1000);
+	};
+
+	fx(p, 3);
 
 	// --ランダムな値を取得-- //
 	int randomValue = rand();
 
 	printf_s("ランダムで返された値は%dです\n", randomValue);
+
+	// --[偶数]か[奇数]かを判定する-- //
+	if (randomValue % 2 == 0) printf_s("正解は偶数でした\n");
+	else printf_s("正解は奇数でした\n");
 
 	return 0;
 }
