@@ -18,11 +18,7 @@ void Lottery(char str[]) {
 	else printf_s("残念！ハズレです！\n");
 }
 
-std::function<void(PFunc, int, char[])> SetTimeOut = [](PFunc p, int second, char str[]) {
-	printf_s("結果は%d後...", second);
-	Sleep(second * 1000);
-	p(str);
-};
+
 
 int main() {
 	PFunc p;
@@ -44,9 +40,15 @@ int main() {
 		printf_s("間違った入力です。\n");
 	}
 
+	std::function<void(PFunc, int)> SetTimeOut = [&](PFunc p, int second) {
+		printf_s("結果は%d秒後...", second);
+		Sleep(second * 1000);
+		p(str);
+	};
+
 	// --抽選-- //
 	p = Lottery;
-	SetTimeOut(p, 3, str);
+	SetTimeOut(p, 3);
 
 	return 0;
 }
