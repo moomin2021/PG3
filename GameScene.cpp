@@ -54,6 +54,11 @@ void GameScene::Update()
 	// プレイヤー更新処理
 	player_->Update();
 
+	// エネミーの更新処理
+	for (size_t i = 0; i < maxEnemy_; i++) {
+		enemys_[i].Update(player_->position_);
+	}
+
 	// 当たり判定
 	Collision();
 
