@@ -4,10 +4,7 @@
 
 // ƒV[ƒ“—ñ‹“Œ^
 enum SCENE {
-	TITLE,
-	NEWGAME,
-	GAMEPLAY,
-	GAMECLEAR
+	GAME
 };
 
 class SceneManager {

@@ -1,9 +1,6 @@
 #include "SceneManager.h"
 #include "DxLib.h"
-#include "TitleScene.h"
-#include "NewGameScene.h"
-#include "GamePlayScene.h"
-#include "GameClearScene.h"
+#include "GameScene.h"
 
 // インスタンス取得
 SceneManager* SceneManager::GetInstance() {
@@ -42,25 +39,10 @@ void SceneManager::ChangeScene(int sceneNo) {
     // 指定されたシーンのインスタンス生成と初期化
     switch (sceneNo)
     {
-    case TITLE:
-        myScene_ = new TitleScene();// -> インスタンス生成
+    case SCENE::GAME:
+        myScene_ = new GameScene();// -> インスタンス生成
         myScene_->Initialize();// -> 現在のシーンの初期化処理
-        sceneNo_ = SCENE::TITLE;// -> 現在のシーン番号を変更
-        break;
-    case NEWGAME:
-        myScene_ = new NewGameScene();// -> インスタンス生成
-        myScene_->Initialize();// -> 現在のシーンの初期化処理
-        sceneNo_ = SCENE::NEWGAME;// -> 現在のシーン番号を変更
-        break;
-    case GAMEPLAY:
-        myScene_ = new GamePlayScene();// -> インスタンス生成
-        myScene_->Initialize();// -> 現在のシーンの初期化処理
-        sceneNo_ = SCENE::GAMEPLAY;// -> 現在のシーン番号を変更
-        break;
-    case GAMECLEAR:
-        myScene_ = new GameClearScene();// -> インスタンス生成
-        myScene_->Initialize();// -> 現在のシーンの初期化処理
-        sceneNo_ = SCENE::GAMECLEAR;// -> 現在のシーン番号を変更
+        sceneNo_ = SCENE::GAME;// -> 現在のシーン番号を変更
         break;
     }
 }
@@ -73,7 +55,7 @@ void SceneManager::Update() {
         sceneNo_++;
 
         // 現在のシーン番号が最大値以上なら
-        if (sceneNo_ > SCENE::GAMECLEAR) {
+        if (sceneNo_ > SCENE::GAME) {
             // 現在のシーン番号を0にする
             sceneNo_ = 0;
         }

@@ -48,7 +48,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	// シーン管理クラスのインスタンス取得
 	SceneManager* sceneM = SceneManager::GetInstance();
-	sceneM->ChangeScene(SCENE::TITLE);// -> 最初のシーン
+	sceneM->ChangeScene(SCENE::GAME);// -> 最初のシーン
 
 	// ゲームループ
 	while (true) {
