@@ -175,15 +175,46 @@ void TaskManagementSystem::TaskAdd()
 
 void TaskManagementSystem::TaskDelete()
 {
-	cout << "削除したいタスクのIDを入力してください" << endl;
-	int inputNum = 0;
-	cin >> inputNum;
+	// タスクが0個だったら
+	if (taskManagers_.size() == 0) {
+		// タスクがないことを表示
+		printf_s("現在タスクがありません\n");
+		nowScene_ = MENU;
+		return;
+	}
 
-	for (size_t i = 0; i < tasks_.size(); i++) {
-		if (tasks_.at(i).id_ == inputNum) {
-			tasks_.erase(tasks_.begin() + i);
-			break;
+	cout << "削除したいタスクのIDを入力してください" << endl;
+
+	while (true) {
+		int inputNum;// -> 入力保存用
+		cin >> inputNum;// -> 入力受付
+
+		// ID発見フラグ
+		bool isIDDiscovery = false;
+
+		// 不正入力された場合
+		if (cin.good() == 0) {
+			cin.clear();// -> エラーフラグクリア
+			cin.ignore(256, '\n');// -> バッファ削除
 		}
+
+		else {
+			// 該当のIDを持つ担当者を見つける
+			for (size_t i = 0; i < tasks_.size(); i++) {
+				if (tasks_.at(i).id_ == inputNum) {
+					tasks_.erase(tasks_.begin() + i);
+					isIDDiscovery = true;
+					break;
+				}
+			}
+		}
+
+		// 該当するIDを発見したらループを抜ける
+		if (isIDDiscovery) break;
+
+		// 該当する担当者がいなかったら
+		cout << "入力されたIDのタスクが見つかりませんでした" << endl;
+		cout << "再入力してください" << endl;
 	}
 
 	cout << "指定IDのタスクを削除しました" << endl;
@@ -212,11 +243,19 @@ void TaskManagementSystem::TaskEdit()
 		// ID発見フラグ
 		bool isIDDiscovery = false;
 
-		// 該当する担当者の情報を設定
-		for (auto& task : tasks_) {
-			if (inputNum == task.id_) {
-				taskPtr = &task;
-				isIDDiscovery = true;
+		// 不正入力された場合
+		if (cin.good() == 0) {
+			cin.clear();// -> エラーフラグクリア
+			cin.ignore(256, '\n');// -> バッファ削除
+		}
+
+		else {
+			// 該当する担当者の情報を設定
+			for (auto& task : tasks_) {
+				if (inputNum == task.id_) {
+					taskPtr = &task;
+					isIDDiscovery = true;
+				}
 			}
 		}
 
@@ -288,14 +327,37 @@ void TaskManagementSystem::TaskManagerDelete()
 	}
 
 	cout << "削除したい担当者のIDを入力してください" << endl;
-	int inputNum = 0;
-	cin >> inputNum;
 
-	for (size_t i = 0; i < taskManagers_.size(); i++) {
-		if (taskManagers_.at(i).id_ == inputNum) {
-			taskManagers_.erase(taskManagers_.begin() + i);
-			break;
+	while (true) {
+		int inputNum;// -> 入力保存用
+		cin >> inputNum;// -> 入力受付
+
+		// ID発見フラグ
+		bool isIDDiscovery = false;
+
+		// 不正入力された場合
+		if (cin.good() == 0) {
+			cin.clear();// -> エラーフラグクリア
+			cin.ignore(256, '\n');// -> バッファ削除
 		}
+
+		else {
+			// 該当のIDを持つ担当者を見つける
+			for (size_t i = 0; i < taskManagers_.size(); i++) {
+				if (taskManagers_.at(i).id_ == inputNum) {
+					taskManagers_.erase(taskManagers_.begin() + i);
+					isIDDiscovery = true;
+					break;
+				}
+			}
+		}
+
+		// 該当するIDを発見したらループを抜ける
+		if (isIDDiscovery) break;
+
+		// 該当する担当者がいなかったら
+		cout << "入力されたIDの担当者が見つかりませんでした" << endl;
+		cout << "再入力してください" << endl;
 	}
 
 	cout << "指定IDの担当者を削除しました" << endl;
@@ -324,11 +386,19 @@ void TaskManagementSystem::TaskManagerEdit()
 		// ID発見フラグ
 		bool isIDDiscovery = false;
 
-		// 該当する担当者の情報を設定
-		for (auto& taskManager : taskManagers_) {
-			if (inputNum == taskManager.id_) {
-				taskManagerPtr = &taskManager;
-				isIDDiscovery = true;
+		// 不正入力された場合
+		if (cin.good() == 0) {
+			cin.clear();// -> エラーフラグクリア
+			cin.ignore(256, '\n');// -> バッファ削除
+		}
+
+		else {
+			// 該当する担当者の情報を設定
+			for (auto& taskManager : taskManagers_) {
+				if (inputNum == taskManager.id_) {
+					taskManagerPtr = &taskManager;
+					isIDDiscovery = true;
+				}
 			}
 		}
 
